@@ -1,12 +1,13 @@
 # ============================================================
 # Federated Transformer for 6G-ISAC — Python Dependencies
 # ============================================================
+# NOTE: torch and torchvision are installed separately in the
+# Dockerfile using the CPU-only wheel to avoid the ~2 GB CUDA build.
+# If running locally WITH a GPU, install manually:
+#   pip install torch torchvision
+# ============================================================
 
-# Deep learning
-torch>=2.0.0
-torchvision>=0.15.0
-
-# Federated learning (optional Flower integration)
+# Federated learning
 flwr>=1.5.0
 
 # Numerical / ML utilities
