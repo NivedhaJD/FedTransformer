@@ -158,4 +158,6 @@ python evaluation.py  # Smoke-test metric computation
 
 ---
 
-*Research simulation for 6G / cybersecurity educational purposes.*
+ © 2026 Nivedha
+
+This project is licensed under the MIT License.
