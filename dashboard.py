@@ -104,7 +104,8 @@ PLOTLY_LAYOUT = dict(
     font=dict(family="IBM Plex Mono", color="#c0cfe0", size=11),
     xaxis=dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f"),
     yaxis=dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f"),
-    margin=dict(l=40, r=20, t=40, b=40),
+    margin=dict(l=40, r=20, t=60, b=40),
+    height=420,
     hovermode="x unified",
 )
 
@@ -302,9 +303,9 @@ if has_data:
             marker=dict(size=5),
         ))
     fig.update_layout(
-        title="F1 / Precision / Recall per Round",
+        title=dict(text="F1 / Precision / Recall per Round", x=0, xanchor="left"),
         yaxis_range=[0, 1],
-        legend=dict(orientation="h", yanchor="bottom", y=1.02),
+        legend=dict(orientation="h", yanchor="top", xanchor="right", x=1, y=1),
         **PLOTLY_LAYOUT,
     )
     st.plotly_chart(fig, use_container_width=True)

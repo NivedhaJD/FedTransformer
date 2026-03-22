@@ -1,0 +1,93 @@
+# ============================================================
+# .gitignore — Federated Transformer for 6G-ISAC
+# ============================================================
+
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+
+# ── Virtual environments ─────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# ── Distribution / packaging ────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# ── Testing & coverage ──────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.test
+
+# ── Type checking ────────────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+.pyright/
+
+# ── Jupyter ──────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Model artifacts & outputs ────────────────────────────────
+outputs/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# ── Training logs ────────────────────────────────────────────
+logs/
+*.csv
+*.log
+
+# ── Plots / figures (generated at runtime) ───────────────────
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.svg
+
+# ── Training history ─────────────────────────────────────────
+training_history.json
+
+# ── Data ─────────────────────────────────────────────────────
+data/
+datasets/
+*.h5
+*.hdf5
+*.npz
+*.npy
+
+# ── IDE / editor ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ───────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Docker ───────────────────────────────────────────────────
+.dockerignore
+
+# ── Secrets / config ─────────────────────────────────────────
+.env.*
+secrets.yaml
+config.local.yaml
+
+# ── Streamlit cache ──────────────────────────────────────────
+.streamlit/
