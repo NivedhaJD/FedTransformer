@@ -21,10 +21,10 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-from model import ISACTransformer
-from dataset import ISACDataset, get_dataloader
-from evaluation import quick_accuracy
-from metrics_logger import log_client_metrics
+from federated_learning.models.transformer import ISACTransformer
+from network.dataset import ISACDataset, get_dataloader
+from utils.metrics import quick_accuracy
+from utils.logger import log_client_metrics
 
 
 # ---------------------------------------------------------------------------
@@ -190,7 +190,7 @@ def build_clients(
 
 if __name__ == "__main__":
     # Quick single-client test
-    from model import ISACTransformer
+    from federated_learning.models.transformer import ISACTransformer
 
     device = torch.device("cpu")
     global_model = ISACTransformer().to(device)

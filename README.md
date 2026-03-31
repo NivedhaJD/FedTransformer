@@ -1,163 +1,133 @@
-# 📡 Federated Transformer for 6G-ISAC Networks
+# 🛰️ FedTransformer: Federated Learning for 6G-ISAC
 
-A complete research simulation of **Federated Learning** applied to **6G Integrated Sensing and Communication (ISAC)** using a **Transformer neural network**.
+![FedTransformer Dashboard Mockup](assets/dashboard_mockup.png)
 
----
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch 2.0+](https://img.shields.io/badge/pytorch-2.0+-ee4c2c.svg)](https://pytorch.org/get-started/locally/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🔬 What This Simulates
-
-Multiple 6G edge nodes (base stations / devices) collaboratively train a Transformer model
-**without sharing raw data** — only model weights are exchanged with a central server.
-
-### Network States Classified
-| Label | Class | Description |
-|-------|-------|-------------|
-| 0 | Normal | Typical operation |
-| 1 | High Interference | Elevated noise/jamming |
-| 2 | Target Detected | Radar/sensing event |
-| 3 | Congestion | Overload condition |
+**FedTransformer** is a high-fidelity research platform designed for **Federated Learning (FL)** applications within **6G Integrated Sensing and Communication (ISAC)** environments. Utilizing a state-of-the-art **Transformer-based backbone**, the system enables private, decentralized signal classification and sensing while maintaining peak network performance through multi-layered security and post-hoc explainability.
 
 ---
 
-## 🧮 Key Equations Implemented
+## 💎 Key Features
+
+- **🧠 Transformer Architecture**: Attention-based sequential processing for high-dimensional 6G signal classification and Doppler shift analysis.
+- **🛡️ 3-Tier Security**:
+  - **AES-256-GCM**: Military-grade encryption for local update transmissions.
+  - **Anomaly Detection**: Cosine Similarity-based filtering to detect and reject poisoned model updates.
+  - **Node Quarantine**: Automatic blacklisting of malicious entities to protect the global model's integrity.
+- **🔍 XAI-Driven Validation**: Dual-stage verification using SHAP (SHapley Additive exPlanations) to ensure client updates are statistically coherent and honest.
+- **🌊 6G-ISAC Simulation**: High-fidelity environmental modeling (CSI, SNR, Doppler Shift, Multi-path Delay, and Radar RCS).
+- **🎨 Glass-Tech Dashboard**: A premium, real-time interactive UI powered by FastAPI and WebSockets for monitoring training progress across 12-step communication rounds.
+
+---
+
+## 🏗️ System Architecture
+
+The FedTransformer orchestrates a decentralized 12-step communication loop to ensure secure and efficient global model convergence.
+
+```mermaid
+graph TD
+    A[1. Global Init] --> B[2. Client Selection]
+    B --> C[3. Distribute Model]
+    C --> D[4. Local Training]
+    D --> E[5. AES-256 Encryption]
+    E --> F[6. Transmit Update]
+    F --> G[7. Anomaly Detection]
+    G --> H[8. XAI Validation]
+    H --> I[9. Performance Check]
+    I --> J[10. FedAvg Aggregation]
+    J --> K[11. Log & Metric Track]
+    K --> L[12. Dashboard Update]
+    L --> B
+```
+
+---
+
+## 📡 6G-ISAC Feature Space
+
+The simulation generates synthetic data representing **4 Network States**: 
+`Normal`, `High Interference`, `Target Detected`, and `Congestion`.
+
+| Domain | Signal Features |
+| :------- | :------- |
+| **Channel (CSI)** | Amplitude, Phase, Doppler Shift, Multipath Delay, Angle of Arrival (AoA) |
+| **Quality** | RSSI (dBm), Signal-to-Noise Ratio (SNR), Bit Error Rate (BER) |
+| **Sensing (Radar)** | Radar Range, Velocity, Radar Cross Section (RCS) |
+| **Traffic** | Throughput (Mbps), Jitter, Packet Loss, Active User Density |
+
+---
+
+## 📐 Theoretical Framework
 
 ### Federated Averaging (FedAvg)
-```
-w_{t+1} = Σ_i (n_i / N) · w_i^t
-```
+Model weights $w$ are aggregated from $K$ selected clients based on their local dataset size $n_k$:
+$$w_{t+1} = \sum_{k=1}^K \frac{n_k}{N} w_k^t$$
 
-### Scaled Dot-Product Attention
-```
-Attention(Q, K, V) = softmax( Q Kᵀ / √d_k ) · V
-```
+### Multi-Head Attention
+The core of our **Transformer** uses Scaled Dot-Product Attention to identify patterns across signal sequences:
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
 
-### Softmax
-```
-softmax(x_i) = e^{x_i} / Σ e^{x_j}
-```
-
-### Cross-Entropy Loss
-```
-L = -(1/m) Σ [ y·log(ŷ) + (1-y)·log(1-ŷ) ]
-```
-
-### Gradient Descent
-```
-w_{t+1} = w_t - η · ∇L(w_t)
-```
+### Security: Update Similarity
+We maintain a similarity threshold $\tau \ge 0.75$ using **Cosine Similarity** to verify update alignment:
+$$\text{sim}(w_{global}, w_{local}) = \frac{w_g \cdot w_l}{\|w_g\| \|w_l\|}$$
 
 ---
 
-## 📁 File Structure
+## 🚀 Quick Start
 
-```
-federated_isac/
-├── model.py            ← Transformer (Positional Enc, MHA, FFN)
-├── dataset.py          ← Synthetic 6G-ISAC data generator
-├── client.py           ← Edge-node client (local training)
-├── server.py           ← FL server (FedAvg aggregation)
-├── train.py            ← Main simulation entry point
-├── evaluation.py       ← Accuracy / Precision / Recall / F1 / Loss
-├── metrics_logger.py   ← CSV logging utilities
-├── dashboard.py        ← Streamlit real-time dashboard
-├── requirements.txt
-└── README.md
-```
-
----
-
-## ⚡ Quick Start
-
-### 1. Install dependencies
+### 1. Installation
+Ensure you have Python 3.9+ installed. Clone the repository and install the dependencies:
 ```bash
+git clone https://github.com/FedTransformer/FedTransformer.git
+cd FedTransformer
 pip install -r requirements.txt
 ```
 
-### 2. Run the federated training simulation
+### 2. Launch the Research Dashboard (Premium UI)
+The project features a full-stack dashboard for real-time monitoring.
 ```bash
-python train.py
+python server.py
 ```
+📍 Visit **[http://localhost:8000](http://localhost:8000)** to view the Glass-Tech interface.
 
-Optional arguments:
+### 3. Run Headless Simulation
+Execute the training loop via CLI with configurable hyperparameters:
 ```bash
-python train.py --clients 10 --rounds 20 --clients_per_round 5 --local_epochs 3 --lr 0.001
-```
-
-### 3. Launch the dashboard
-```bash
-streamlit run dashboard.py
-```
-Open your browser at **http://localhost:8501**
-
----
-
-## ⚙️ Configuration
-
-Edit `CONFIG` dict at the top of `train.py`:
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `num_clients` | 10 | Total 6G edge nodes |
-| `clients_per_round` | 5 | Nodes per communication round |
-| `num_rounds` | 20 | Total federated rounds (T) |
-| `local_epochs` | 3 | Local training epochs (E) |
-| `samples_per_client` | 500 | Dataset size per node |
-| `learning_rate` | 1e-3 | Gradient descent step (η) |
-| `d_model` | 64 | Transformer embedding size |
-| `num_heads` | 4 | Attention heads |
-| `num_layers` | 2 | Encoder layers |
-
----
-
-## 📊 Dashboard Panels
-
-1. **System Overview** — KPI cards (rounds, clients, accuracy, F1)
-2. **Accuracy vs Round** — global model accuracy curve
-3. **Loss vs Round** — NLL loss curve
-4. **Precision / Recall / F1** — multi-metric chart
-5. **Client Participation** — bar chart per round
-6. **Per-client Heatmap** — local accuracy matrix (client × round)
-7. **Raw Tables** — full CSV data
-
----
-
-## 🗂️ Output Files
-
-After training, the `outputs/` and `logs/` directories contain:
-
-```
-outputs/
-├── global_model.pt          ← Final trained transformer weights
-├── training_curves.png      ← Static training plots
-└── training_history.json    ← Round-by-round metrics
-
-logs/
-├── global_metrics.csv       ← Per-round global evaluation
-├── client_metrics.csv       ← Per-client per-round results
-└── round_summary.csv        ← Round timing and participation
+python main.py --rounds 20 --clients 50 --clients_per_round 10 --lr 0.001
 ```
 
 ---
 
-## 🧪 Individual Module Tests
+## 📂 Project Structure
 
 ```bash
-python model.py       # Check transformer architecture
-python dataset.py     # Verify data generation
-python evaluation.py  # Smoke-test metric computation
+FedTransformer/
+├── assets/              # README visuals and documentation artifacts
+├── config/              # Centralized hyperparameters and CLI parsing
+├── federated_learning/  # Core FL logic
+│   ├── aggregation/     # FedAvg and advanced weighting algorithms
+│   ├── coordinator.py   # 12-step Orchestration & Simulation engine
+│   ├── explainability/  # SHAP-based feature importance (XAI)
+│   ├── models/          # Transformer architecture and update validator
+│   └── security/        # AES-256-GCM encryption and Anomaly Detection
+├── frontend/            # Glass-Tech Dashboard (React/FastAPI source)
+├── network/             # 6G-ISAC Environment & Client Nodes
+│   ├── client.py        # Edge node behavior and local training
+│   └── dataset.py       # Non-IID Synthetic Signal Generator
+├── utils/               # Metrics, Logging, and Performance Trackers
+├── main.py              # CLI Simulation entry point
+└── server.py            # Dashboard Backend & WebSocket server
 ```
 
 ---
 
-## 📋 Requirements
-
-- Python 3.9+
-- PyTorch 2.0+
-- Streamlit 1.28+
-- See `requirements.txt` for full list
+## 📜 License
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
- © 2026 Nivedha
-
-This project is licensed under the MIT License.
+<p align="center">
+  <i>Part of the 6G-ISAC Federated Learning Research Initiative</i>
+</p>

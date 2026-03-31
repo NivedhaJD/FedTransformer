@@ -26,7 +26,7 @@ from sklearn.metrics import (
     classification_report,
 )
 
-from dataset import NUM_CLASSES, CLASS_NAMES
+from network.dataset import NUM_CLASSES, CLASS_NAMES
 
 
 # ---------------------------------------------------------------------------
@@ -128,8 +128,8 @@ def print_metrics(metrics: dict, round_num: int = None):
 
 if __name__ == "__main__":
     # Smoke-test with a random model
-    from model import ISACTransformer
-    from dataset import get_test_dataloader
+    from federated_learning.models.transformer import ISACTransformer
+    from network.dataset import get_test_dataloader
 
     model = ISACTransformer()
     dl = get_test_dataloader(num_samples=200)

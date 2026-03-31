@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FedTransformer · 6G-ISAC Network Intelligence</title>
+  <meta name="description" content="Federated Transformer training dashboard for 6G Integrated Sensing & Communication networks" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="src/styles/main.css" />
+</head>
+<body>
+  <div id="bg-grid"></div>
+  <div id="app">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div class="logo">
+        <span class="logo-icon">📡</span>
+        <div>
+          <div class="logo-title">FedTransformer</div>
+          <div class="logo-sub">6G-ISAC NETWORK INTELLIGENCE</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item active" data-page="dashboard" onclick="navigate('dashboard')">
+          <span class="nav-icon">◈</span> Dashboard
+        </a>
+        <a class="nav-item" data-page="topology" onclick="navigate('topology')">
+          <span class="nav-icon">⬡</span> Network Topology
+        </a>
+        <a class="nav-item" data-page="signals" onclick="navigate('signals')">
+          <span class="nav-icon">〜</span> Signal Analysis
+        </a>
+        <a class="nav-item" data-page="training" onclick="navigate('training')">
+          <span class="nav-icon">◎</span> Training
+        </a>
+        <a class="nav-item" data-page="security" onclick="navigate('security')">
+          <span class="nav-icon">◆</span> Security
+        </a>
+        <a class="nav-item" data-page="model" onclick="navigate('model')">
+          <span class="nav-icon">◇</span> Model Insights
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="status-dot"></div>
+        <span>Network live</span>
+        <span class="round-badge" id="sidebar-round">Round 1</span>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main id="main">
+      <div id="page-dashboard" class="page active"></div>
+      <div id="page-topology" class="page"></div>
+      <div id="page-signals" class="page"></div>
+      <div id="page-training" class="page"></div>
+      <div id="page-security" class="page"></div>
+      <div id="page-model" class="page"></div>
+    </main>
+
+  </div>
+
+  <script src="src/components/data.js"></script>
+  <script src="src/components/charts.js"></script>
+  <script src="src/components/pages.js"></script>
+  <script src="src/components/app.js"></script>
+</body>
+</html>

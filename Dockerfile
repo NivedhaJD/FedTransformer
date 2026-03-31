@@ -53,11 +53,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 EXPOSE 8501
 EXPOSE 8000
 
-CMD ["python", "train.py"]
+CMD ["python", "main.py"]
 
 # ── Alternative targets ─────────────────────────────────────
 # Launch the Streamlit dashboard:
-#   docker run -p 8501:8501 fedtransformer streamlit run dashboard.py --server.address 0.0.0.0
+#   docker run -p 8501:8501 fedtransformer streamlit run frontend/dashboard.py --server.address 0.0.0.0
 #
 # Override training args:
-#   docker run fedtransformer python train.py --clients 10 --rounds 20 --clients_per_round 5
+#   docker run fedtransformer python main.py --clients 10 --rounds 20 --clients_per_round 5

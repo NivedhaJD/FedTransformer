@@ -27,7 +27,10 @@ import plotly.graph_objects as go
 import plotly.express as px
 import streamlit as st
 
-from metrics_logger import read_global_metrics, read_client_metrics, read_round_summary
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from utils.logger import read_global_metrics, read_client_metrics, read_round_summary
 
 # ---------------------------------------------------------------------------
 # Page config

@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
       target: runtime
     container_name: fedtransformer_trainer
-    command: python train.py --clients 5 --rounds 10 --clients_per_round 3
+    command: python main.py --clients 5 --rounds 10 --clients_per_round 3
     volumes:
       # Persist model checkpoints and plots to host
       - ./outputs:/app/outputs
@@ -37,7 +37,7 @@ services:
       target: runtime
     container_name: fedtransformer_dashboard
     command: >
-      streamlit run dashboard.py
+      streamlit run frontend/dashboard.py
       --server.address 0.0.0.0
       --server.port 8501
       --server.headless true
